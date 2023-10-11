@@ -63,7 +63,18 @@ struct WeatherTableView: View {
             }
             
             Spacer()
-            
+        }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white)
+        .cornerRadius(20)
+        .shadow(radius: 5)
+        .padding()
+        .onAppear {
+            fetchWeatherData() // Вызываем загрузку данных при появлении представления
+        }
+        
+        VStack {
             Button(action: {
                 fetchWeatherData()
             }) {
@@ -79,15 +90,6 @@ struct WeatherTableView: View {
             Text("Last Update: \(lastUpdateText())")
                 .font(.caption)
                 .foregroundColor(.gray)
-        }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.white)
-        .cornerRadius(20)
-        .shadow(radius: 5)
-        .padding()
-        .onAppear {
-            fetchWeatherData() // Вызываем загрузку данных при появлении представления
         }
     }
     
