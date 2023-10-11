@@ -13,8 +13,16 @@ struct WeatherTableView: View {
     let lastUpdate: Date?
     @State private var isFetchingData = false
     let locationCoordinate: CLLocationCoordinate2D?
+    @Binding var searchText: String
     
     var body: some View {
+        
+        TextField("Введите город", text: $searchText)
+            .padding()
+            .background(Color.gray.opacity(0.2))
+            .cornerRadius(10)
+            .padding(.horizontal)
+        
         VStack {
             Text("Weather in \(weatherData.name)")
                 .font(.title)

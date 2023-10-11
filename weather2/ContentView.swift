@@ -2,6 +2,8 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var weatherViewModel = WeatherViewModel()
+    @State private var searchText = ""
+
     
     var body: some View {
         VStack {
@@ -10,7 +12,8 @@ struct ContentView: View {
                     weatherData: weatherData,
                     fetchWeatherData: weatherViewModel.fetchWeatherData,
                     lastUpdate: weatherViewModel.lastUpdate,
-                    locationCoordinate: weatherViewModel.coordinate
+                    locationCoordinate: weatherViewModel.coordinate,
+                    searchText: $searchText
                 ) // Pass the lastUpdate property from WeatherViewModel
             } else {
                 ProgressView()
