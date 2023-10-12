@@ -1,18 +1,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var weatherViewModel = WeatherViewModel()
+    @StateObject private var weatherDataProvider = WeatherDataProvider()
     @State private var searchText = ""
 
     
     var body: some View {
         VStack {
-            if let weatherData = weatherViewModel.weatherData {
+            if let weatherData = weatherDataProvider.weatherData {
                 WeatherTableView(
                     weatherData: weatherData,
-                    fetchWeatherData: weatherViewModel.fetchWeatherData,
-                    lastUpdate: weatherViewModel.lastUpdate,
-                    locationCoordinate: weatherViewModel.coordinate,
+                    fetchWeatherData: weatherDataProvider.fetchWeatherData,
+                    lastUpdate: weatherDataProvider.lastUpdate,
+                    locationCoordinate: weatherDataProvider.coordinate,
                     searchText: $searchText
                 ) // Pass the lastUpdate property from WeatherViewModel
             } else {
@@ -20,7 +20,7 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            weatherViewModel.fetchWeatherData()
+            weatherDataProvider.fetchWeatherData()
         }
     }
 }

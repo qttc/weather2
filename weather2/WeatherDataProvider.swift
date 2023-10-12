@@ -1,5 +1,5 @@
 //
-//  WeatherViewModel.swift
+//  WeatherDataProvider.swift
 //  weather2
 //
 //  Created by Mikita Tratseuski on 11.10.23.
@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation // Импортируем CoreLocation для использования CLLocationCoordinate2D
 
-class WeatherViewModel: ObservableObject {
+class WeatherDataProvider: ObservableObject {
     @Published var weatherData: WeatherData?
     @Published var lastUpdate: Date? // Добавляем свойство для хранения времени последнего обновления
     var coordinate: CLLocationCoordinate2D? // Добавляем новое свойство для хранения координат
