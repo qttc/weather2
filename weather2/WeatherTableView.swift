@@ -14,14 +14,38 @@ struct WeatherTableView: View {
     @State private var isFetchingData = false
     let locationCoordinate: CLLocationCoordinate2D?
     @Binding var searchText: String
+    @State private var isShowingSearchModal = false
     
     var body: some View {
         
-        TextField("Введите город", text: $searchText)
+        // Лейбл "поиск" по тапу на который вызывается модалка
+        VStack {
+            
+            Label(
+                title: {
+                    Text(searchText.isEmpty ? "Введите город" : searchText)
+                        .foregroundColor(searchText.isEmpty ? .gray : .black)
+                },
+                icon: {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.gray)
+                }
+            )
+            .frame(maxWidth: .infinity)
+//            .frame(height: 15)
             .padding()
             .background(Color.gray.opacity(0.2))
             .cornerRadius(10)
             .padding(.horizontal)
+            .onTapGesture {
+                isShowingSearchModal = true
+            }
+            
+        }.sheet(isPresented: $isShowingSearchModal) {
+            LocationSearchView(isPresented: $isShowingSearchModal)
+        }
+        
+        // Погода
         
         VStack {
             Text("Weather in \(weatherData.name)")
@@ -56,6 +80,9 @@ struct WeatherTableView: View {
             }
             .padding()
             
+            
+            // MapView локации
+            
             if let coordinate = locationCoordinate {
                 MapView(coordinate: coordinate)
                     .frame(height: 200)
@@ -73,6 +100,8 @@ struct WeatherTableView: View {
         .onAppear {
             fetchWeatherData() // Вызываем загрузку данных при появлении представления
         }
+        
+        // Обновить и дата последнего обновления
         
         VStack {
             Button(action: {
