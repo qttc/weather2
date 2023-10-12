@@ -20,7 +20,6 @@ struct WeatherTableView: View {
         
         // Лейбл "поиск" по тапу на который вызывается модалка
         VStack {
-            
             Label(
                 title: {
                     Text(searchText.isEmpty ? "Введите город" : searchText)
@@ -42,7 +41,7 @@ struct WeatherTableView: View {
             }
             
         }.sheet(isPresented: $isShowingSearchModal) {
-            LocationSearchView(isPresented: $isShowingSearchModal)
+            LocationSearchView(isPresented: $isShowingSearchModal, searchText: $searchText)
         }
         
         // Погода
@@ -60,18 +59,17 @@ struct WeatherTableView: View {
                 Text("\(weatherData.temperature, specifier: "%.1f")°C")
                     .font(.system(size: 48))
                     .fontWeight(.semibold)
+                
+                Text(weatherData.description)
+                    .font(.subheadline)
+                
+                Text("Feels Like: \(weatherData.feelsLikeTemperature, specifier: "%.1f")°C")
             }
             .padding()
             .background(Color.blue.opacity(0.2))
             .cornerRadius(10)
             
-            VStack(spacing: 8) {
-                Text("Weather Conditions")
-                    .font(.headline)
-                
-                Text(weatherData.description)
-                    .font(.subheadline)
-                
+            VStack(spacing: 8) {              
                 Text("Wind Speed")
                     .font(.headline)
                 

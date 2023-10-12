@@ -19,6 +19,10 @@ struct WeatherData: Decodable {
         main.temp
     }
     
+    var feelsLikeTemperature: Double {
+        main.feels_like
+    }
+    
     var windSpeed: Double {
         wind.speed
     }
@@ -30,6 +34,7 @@ struct Weather: Decodable {
 
 struct Main: Decodable {
     let temp: Double
+    let feels_like: Double
 }
 
 struct Wind: Decodable {
